@@ -8,12 +8,30 @@
  */
 
 #include <windows.h>
+#include "MainWindow.h"
 
 int WINAPI
     WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR lpCmdLine, int nCmdShow)
 {
-    MessageBox(NULL, "Hello World! This is my first win32 program!",
-        "Lesson1", MB_OK);
+    MSG msg;
 
-    return 0;
+    MainWindow *winMain = new MainWindow(hInst);
+    if(!winMain->Run(nCmdShow))
+    {
+        delete winMain;
+        return 1; // error
+    }
+
+    // Run the message loop. It will run until GetMessage() returns 0
+    while (GetMessage (&msg, NULL, 0, 0))
+    {
+        // Translate virtual-key messages into character messages
+        TranslateMessage(&msg);
+        // Send message to WindowProcedure
+        DispatchMessage(&msg);
+    }
+
+    delete winMain;
+
+    return msg.wParam;
 }
