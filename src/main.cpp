@@ -1,6 +1,5 @@
 /* DrawLite - Windows Programming Tutorial
  * by Pravin Paratey (March 08, 2007)
- * http://www.dustyant.com/wintut
  *
  * Source released under
  * Creative Commons Attribution-Noncommercial-No Derivative Works 3.0

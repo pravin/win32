@@ -1,6 +1,5 @@
 /* DrawLite - Windows Programming Tutorial
  * by Pravin Paratey (March 08, 2007)
- * http://www.dustyant.com/wintut
  *
  * Source released under
  * Creative Commons Attribution-Noncommercial-No Derivative Works 3.0
@@ -17,11 +16,12 @@ public:
     MainWindow(HINSTANCE hInstance);
     ~MainWindow();
     static LRESULT CALLBACK MainWndProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+    static void OnCommand(HWND hwnd, int id, HWND hCtl, UINT codeNotify);
     bool Run(int nCmdShow);
 
 private:
     WNDCLASSEX m_wndClass;
-    HINSTANCE m_hInstance;
+    static HINSTANCE m_hInstance;
     HWND m_hwnd;
     static char m_szClassName[];
 };

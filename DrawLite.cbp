@@ -9,20 +9,36 @@
 		<Option compiler="0"/>
 		<Build>
 			<Target title="default">
-				<Option output="C:\Documents and Settings\pravin\My Documents\Projects\Windows Programming Tutorial\code\trunk\DrawLite.exe"/>
+				<Option output="C:\Documents and Settings\pravin\My Documents\Projects\Windows Programming Tutorial\code\trunk\bin\DrawLite.exe"/>
 				<Option working_dir="."/>
-				<Option object_output=".objs"/>
+				<Option object_output=".\bin\"/>
 				<Option deps_output=".deps"/>
 				<Option type="0"/>
 				<Option compiler="0"/>
 				<Option projectResourceIncludeDirsRelation="0"/>
+				<Compiler>
+					<Add option="-g"/>
+				</Compiler>
 			</Target>
 		</Build>
+		<Compiler>
+			<Add option="-g"/>
+		</Compiler>
 		<Linker>
 			<Add library="gdi32"/>
 			<Add library="user32"/>
 			<Add library="kernel32"/>
 		</Linker>
+		<Unit filename="src\AboutDialog.cpp">
+			<Option compilerVar="CPP"/>
+			<Option target="default"/>
+		</Unit>
+		<Unit filename="src\AboutDialog.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="default"/>
+		</Unit>
 		<Unit filename="src\MainWindow.cpp">
 			<Option compilerVar="CPP"/>
 			<Option target="default"/>
@@ -35,6 +51,17 @@
 		</Unit>
 		<Unit filename="src\main.cpp">
 			<Option compilerVar="CPP"/>
+			<Option target="default"/>
+		</Unit>
+		<Unit filename="src\resource.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="default"/>
+		</Unit>
+		<Unit filename="src\resource.rc">
+			<Option compilerVar="WINDRES"/>
+			<Option objectName="src\resource.res"/>
 			<Option target="default"/>
 		</Unit>
 	</Project>
