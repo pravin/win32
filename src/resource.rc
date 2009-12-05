@@ -1,0 +1,67 @@
+/* DrawLite - Windows Programming Tutorial
+ * by Pravin Paratey (March 31, 2007)
+ * http://www.dustyant.com/win32
+ *
+ * Source released under
+ * Creative Commons Attribution-Noncommercial-No Derivative Works 3.0
+ * http://creativecommons.org/licenses/by-nc-nd/3.0/
+ */
+
+#include <windows.h>
+#include "resource.h"
+
+IDI_APP_ICON   ICON    DISCARDABLE "res\\draw.ico"
+
+// About window
+IDD_ABOUT   DIALOG  DISCARDABLE 32, 32, 180, 100
+STYLE   DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About DrawLite"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CTEXT   "DrawLite v0.1", IDC_STATIC, 40, 12, 100, 8
+    ICON    IDI_APP_ICON, IDC_STATIC, 80, 28, 32, 32
+    DEFPUSHBUTTON   "&Ok", IDOK, 66, 80, 50, 14
+    CTEXT   "A drawing application for windows", IDC_STATIC, 7, 52, 166, 8
+END
+
+IDM_MAINMENU MENU DISCARDABLE
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N", IDM_FILE_NEW
+		MENUITEM "&Open\tCtrl+O", IDM_FILE_OPEN
+		MENUITEM "&Save\tCtrl+S", IDM_FILE_SAVE
+		MENUITEM SEPARATOR
+        MENUITEM "E&xit", IDM_FILE_EXIT
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About", IDM_HELP_ABOUT
+    END
+END
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK VS_FF_PRERELEASE // Which bits are to be taken
+ FILEFLAGS VS_FF_PRERELEASE // This is a pre-release version
+ FILEOS VOS__WINDOWS32 // Built for Windows 32 bit OS
+ FILETYPE VFT_APP // Type of this is Application
+ FILESUBTYPE 0x0L // 0
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "Pravin Paratey\0"
+            VALUE "FileDescription", "Windows Drawing Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "DrawLite\0"
+            VALUE "LegalCopyright", "Copyright (C) 2007\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "DrawLite.exe\0"
+            VALUE "ProductName", "DrawLite\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+END
