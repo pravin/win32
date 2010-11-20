@@ -1,41 +1,53 @@
-<?xml version="1.0"?>
-<!DOCTYPE CodeBlocks_project_file>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_project_file>
-	<FileVersion major="1" minor="1"/>
+	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Win32 Application"/>
-		<Option makefile="Makefile"/>
-		<Option makefile_is_custom="0"/>
-		<Option compiler="0"/>
+		<Option title="Win32 Application" />
+		<Option pch_mode="0" />
+		<Option compiler="gcc" />
 		<Build>
-			<Target title="default">
-				<Option output="bin\DrawLite.exe"/>
-				<Option working_dir="."/>
-				<Option object_output=".objs"/>
-				<Option deps_output=".deps"/>
-				<Option type="0"/>
-				<Option compiler="0"/>
-				<Option projectResourceIncludeDirsRelation="0"/>
+			<Target title="Debug">
+				<Option output="bin\Debug\Test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\Test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
 			</Target>
 		</Build>
+		<VirtualTargets>
+			<Add alias="All" targets="Debug;Release;" />
+		</VirtualTargets>
 		<Linker>
-			<Add library="gdi32"/>
-			<Add library="user32"/>
-			<Add library="kernel32"/>
+			<Add library="gdi32" />
+			<Add library="user32" />
+			<Add library="kernel32" />
 		</Linker>
 		<Unit filename="MainWindow.cpp">
-			<Option compilerVar="CPP"/>
-			<Option target="default"/>
+			<Option target="default" />
 		</Unit>
 		<Unit filename="MainWindow.h">
-			<Option compilerVar=""/>
-			<Option compile="0"/>
-			<Option link="0"/>
-			<Option target="default"/>
+			<Option target="default" />
 		</Unit>
 		<Unit filename="main.cpp">
-			<Option compilerVar="CPP"/>
-			<Option target="default"/>
+			<Option target="default" />
 		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
