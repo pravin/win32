@@ -23,17 +23,17 @@
 			<Add library="user32"/>
 			<Add library="kernel32"/>
 		</Linker>
-		<Unit filename="src\MainWindow.cpp">
+		<Unit filename="MainWindow.cpp">
 			<Option compilerVar="CPP"/>
 			<Option target="default"/>
 		</Unit>
-		<Unit filename="src\MainWindow.h">
+		<Unit filename="MainWindow.h">
 			<Option compilerVar=""/>
 			<Option compile="0"/>
 			<Option link="0"/>
 			<Option target="default"/>
 		</Unit>
-		<Unit filename="src\main.cpp">
+		<Unit filename="main.cpp">
 			<Option compilerVar="CPP"/>
 			<Option target="default"/>
 		</Unit>
