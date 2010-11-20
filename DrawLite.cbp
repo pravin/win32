@@ -23,7 +23,7 @@
 			<Add library="user32"/>
 			<Add library="kernel32"/>
 		</Linker>
-		<Unit filename="src\main.cpp">
+		<Unit filename="main.cpp">
 			<Option compilerVar="CPP"/>
 			<Option target="default"/>
 		</Unit>
