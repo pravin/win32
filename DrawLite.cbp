@@ -9,7 +9,7 @@
 		<Option compiler="0"/>
 		<Build>
 			<Target title="default">
-				<Option output="C:\Documents and Settings\pravin\My Documents\Projects\Windows Programming Tutorial\code\trunk\bin\DrawLite.exe"/>
+				<Option output="bin\DrawLite.exe"/>
 				<Option working_dir="."/>
 				<Option object_output=".\bin\"/>
 				<Option deps_output=".deps"/>
