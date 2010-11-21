@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\Test" prefix_auto="1" extension_auto="1" />
+				<Option output="bin\Debug\Drawlite" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\Test" prefix_auto="1" extension_auto="1" />
+				<Option output="bin\Release\Drawlite" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -40,19 +40,13 @@
 			<Add library="kernel32" />
 			<Add library="libcomctl32.a" />
 		</Linker>
-		<Unit filename="src\AboutDialog.cpp" />
-		<Unit filename="src\AboutDialog.h" />
-		<Unit filename="src\ChildWindow.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="src\ChildWindow.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="src\MainWindow.cpp" />
-		<Unit filename="src\MainWindow.h" />
-		<Unit filename="src\main.cpp" />
-		<Unit filename="src\resource.h" />
-		<Unit filename="src\resource.rc">
+		<Unit filename="AboutDialog.cpp" />
+		<Unit filename="AboutDialog.h" />
+		<Unit filename="MainWindow.cpp" />
+		<Unit filename="MainWindow.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="resource.h" />
+		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
 		<Extensions>
