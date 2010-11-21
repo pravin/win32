@@ -18,11 +18,15 @@ public:
     ~MainWindow();
     static LRESULT CALLBACK MainWndProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
     static void OnCommand(HWND hwnd, int id, HWND hCtl, UINT codeNotify);
+    static bool OnCreate(HWND hwnd, LPCREATESTRUCT lpcs);
     bool Run(int nCmdShow);
 
 private:
     WNDCLASSEX m_wndClass;
     static HINSTANCE m_hInstance;
     HWND m_hwnd;
+    static HWND m_hStatusbar;
+    static HWND m_hMainToolbar;
+    static HWND m_hPaintToolbar;
     static char m_szClassName[];
 };

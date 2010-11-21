@@ -11,6 +11,7 @@
 
 #define IDD_ABOUT   100
 #define IDC_STATIC  101
+#define IDC_STATUSBAR   102
 #define IDM_MAINMENU    200
 #define IDM_FILE_NEW    201
 #define IDM_FILE_OPEN   203

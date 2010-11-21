@@ -10,6 +10,8 @@
 #include <windows.h>
 #include "MainWindow.h"
 
+HINSTANCE g_hResource = NULL;
+
 int WINAPI
     WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR lpCmdLine, int nCmdShow)
 {

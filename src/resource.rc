@@ -57,7 +57,7 @@ BEGIN
             VALUE "FileDescription", "Windows Drawing Application\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "DrawLite\0"
-            VALUE "LegalCopyright", "Copyright (C) 2007\0"
+            VALUE "LegalCopyright", "Copyright (c) 2007\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "DrawLite.exe\0"
             VALUE "ProductName", "DrawLite\0"

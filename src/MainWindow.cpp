@@ -9,12 +9,17 @@
 
 #include <windows.h>
 #include <windowsx.h>
+#define _WIN32_IE 0x0500 // To support INITCOMMONCONTROLSEX
+#include <commctrl.h>
 #include "MainWindow.h"
 #include "AboutDialog.h"
 #include "resource.h"
 
 char MainWindow::m_szClassName[] = "DrawLite";
 HINSTANCE MainWindow::m_hInstance = NULL;
+HWND MainWindow::m_hStatusbar = NULL;
+HWND MainWindow::m_hMainToolbar = NULL;
+HWND MainWindow::m_hPaintToolbar = NULL;
 
 // Constructor: MainWindow
 // Initializes the WNDCLASS
@@ -48,14 +53,21 @@ LRESULT CALLBACK MainWindow::MainWndProc (HWND hwnd, UINT msg, WPARAM wParam, LP
 {
     switch (msg)
     {
+    case WM_SIZE:
+        // Resize the statusbar;
+		SendMessage(MainWindow::m_hStatusbar,msg,wParam,lParam);
+        break;
     case WM_DESTROY:
         PostQuitMessage (0);
         break;
     case WM_COMMAND:
         HANDLE_WM_COMMAND(hwnd, wParam, lParam, OnCommand);
         break;
+    case WM_CREATE:
+        HANDLE_WM_CREATE(hwnd, wParam, lParam, OnCreate);
+        break;
     default:
-        return DefWindowProc (hwnd, msg, wParam, lParam);
+        return DefWindowProc(hwnd, msg, wParam, lParam);
     }
 
     return 0;
@@ -88,6 +100,14 @@ bool MainWindow::Run(int nCmdShow)
 {
     if(!RegisterClassEx(&m_wndClass))
         return false;
+
+    // Initialize Common controls
+    INITCOMMONCONTROLSEX icx;
+    // Ensure common control DLL is loaded
+    icx.dwSize = sizeof(INITCOMMONCONTROLSEX);
+    icx.dwICC = ICC_BAR_CLASSES; // Specify BAR classes
+    InitCommonControlsEx(&icx); // Load the common control DLL
+
     m_hwnd = CreateWindowEx(
             0,
             m_szClassName,
@@ -105,5 +125,26 @@ bool MainWindow::Run(int nCmdShow)
     if(!m_hwnd)
         return false;
     ShowWindow(m_hwnd, nCmdShow);
+    return true;
+}
+
+// Creates the toolbars and statusbar
+// Parameters:
+//  cs - Contains initialization parameters
+// Returns:
+//  void
+bool MainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpcs)
+{
+    // Create Main Toolbar
+    MainWindow::m_hMainToolbar = CreateWindowEx(0, TOOLBARCLASSNAME, NULL,
+                                                WS_CHILD | TBSTYLE_FLAT,
+                                                0, 0, 0, 0,
+                                                hwnd, NULL, MainWindow::m_hInstance, NULL);
+
+
+    // Create Paint Toolbar
+
+    // Create Statusbar
+    MainWindow::m_hStatusbar = CreateStatusWindow(WS_CHILD|WS_VISIBLE, "Ready", hwnd, IDC_STATUSBAR);
     return true;
 }

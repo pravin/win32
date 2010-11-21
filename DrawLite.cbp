@@ -1,68 +1,63 @@
-<?xml version="1.0"?>
-<!DOCTYPE CodeBlocks_project_file>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_project_file>
-	<FileVersion major="1" minor="1"/>
+	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Win32 Application"/>
-		<Option makefile="Makefile"/>
-		<Option makefile_is_custom="0"/>
-		<Option compiler="0"/>
+		<Option title="Win32 Application" />
+		<Option pch_mode="0" />
+		<Option compiler="gcc" />
 		<Build>
-			<Target title="default">
-				<Option output="C:\Documents and Settings\pravin\My Documents\Projects\Windows Programming Tutorial\code\trunk\bin\DrawLite.exe"/>
-				<Option working_dir="."/>
-				<Option object_output=".\bin\"/>
-				<Option deps_output=".deps"/>
-				<Option type="0"/>
-				<Option compiler="0"/>
-				<Option projectResourceIncludeDirsRelation="0"/>
+			<Target title="Debug">
+				<Option output="bin\Debug\Test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-g"/>
+					<Add option="-g" />
 				</Compiler>
 			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\Test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
 		</Build>
+		<VirtualTargets>
+			<Add alias="All" targets="default;" />
+		</VirtualTargets>
 		<Compiler>
-			<Add option="-g"/>
+			<Add option="-Os" />
 		</Compiler>
 		<Linker>
-			<Add library="gdi32"/>
-			<Add library="user32"/>
-			<Add library="kernel32"/>
+			<Add library="gdi32" />
+			<Add library="user32" />
+			<Add library="kernel32" />
+			<Add library="libcomctl32.a" />
 		</Linker>
-		<Unit filename="src\AboutDialog.cpp">
-			<Option compilerVar="CPP"/>
-			<Option target="default"/>
+		<Unit filename="src\AboutDialog.cpp" />
+		<Unit filename="src\AboutDialog.h" />
+		<Unit filename="src\ChildWindow.cpp">
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="src\AboutDialog.h">
-			<Option compilerVar=""/>
-			<Option compile="0"/>
-			<Option link="0"/>
-			<Option target="default"/>
+		<Unit filename="src\ChildWindow.h">
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="src\MainWindow.cpp">
-			<Option compilerVar="CPP"/>
-			<Option target="default"/>
-		</Unit>
-		<Unit filename="src\MainWindow.h">
-			<Option compilerVar=""/>
-			<Option compile="0"/>
-			<Option link="0"/>
-			<Option target="default"/>
-		</Unit>
-		<Unit filename="src\main.cpp">
-			<Option compilerVar="CPP"/>
-			<Option target="default"/>
-		</Unit>
-		<Unit filename="src\resource.h">
-			<Option compilerVar=""/>
-			<Option compile="0"/>
-			<Option link="0"/>
-			<Option target="default"/>
-		</Unit>
+		<Unit filename="src\MainWindow.cpp" />
+		<Unit filename="src\MainWindow.h" />
+		<Unit filename="src\main.cpp" />
+		<Unit filename="src\resource.h" />
 		<Unit filename="src\resource.rc">
-			<Option compilerVar="WINDRES"/>
-			<Option objectName="src\resource.res"/>
-			<Option target="default"/>
+			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
