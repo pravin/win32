@@ -51,10 +51,11 @@ MainWindow::~MainWindow()
 // The window proc for the MainWindow Class
 LRESULT CALLBACK MainWindow::MainWndProc (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+    int width, height;
     switch (msg)
     {
     case WM_SIZE:
-        // Resize the statusbar;
+        // Resize the statusbar
 		SendMessage(MainWindow::m_hStatusbar,msg,wParam,lParam);
         break;
     case WM_DESTROY:
@@ -135,12 +136,44 @@ bool MainWindow::Run(int nCmdShow)
 //  void
 bool MainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpcs)
 {
+    const int numbuttons1 = 4;
     // Create Main Toolbar
-    MainWindow::m_hMainToolbar = CreateWindowEx(0, TOOLBARCLASSNAME, NULL,
-                                                WS_CHILD | TBSTYLE_FLAT,
-                                                0, 0, 0, 0,
-                                                hwnd, NULL, MainWindow::m_hInstance, NULL);
+    MainWindow::m_hMainToolbar = CreateWindowEx(
+                                    0, TOOLBARCLASSNAME, NULL,
+                                    WS_CHILD | TBSTYLE_FLAT,
+                                    0, 0, 0, 0,
+                                    hwnd, NULL, MainWindow::m_hInstance, NULL);
 
+    HIMAGELIST hImageList1 = ImageList_Create(
+                                16, 16,                 // 16x16 button size
+                                ILC_COLOR16 | ILC_MASK, // ILC_MASK ensures transparent background
+                                numbuttons1, 0); //
+    // Set the image list.
+    SendMessage(MainWindow::m_hMainToolbar, TB_SETIMAGELIST, (WPARAM)0,
+        (LPARAM)hImageList1);
+
+    // Load the button images.
+    SendMessage(MainWindow::m_hMainToolbar, TB_LOADIMAGES, (WPARAM)IDB_STD_SMALL_COLOR,
+        (LPARAM)HINST_COMMCTRL);
+
+    TBBUTTON tbButtons1[numbuttons1] = {
+        {MAKELONG(STD_FILENEW, 0), IDM_FILE_NEW, TBSTATE_ENABLED,
+            BTNS_AUTOSIZE, {0}, 0, 0},
+        {MAKELONG(STD_FILEOPEN, 0), IDM_FILE_OPEN, TBSTATE_ENABLED,
+            BTNS_AUTOSIZE, {0}, 0, 0},
+        {MAKELONG(STD_FILESAVE, 0), IDM_FILE_SAVE, TBSTATE_ENABLED,
+            BTNS_AUTOSIZE, {0}, 0, 0},
+        {MAKELONG(STD_FILESAVE, 0), 0, TBSTATE_ENABLED,
+            TBSTYLE_SEP, {0}, 0, 0}
+    };
+
+    // Add buttons
+    SendMessage(MainWindow::m_hMainToolbar, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
+    SendMessage(MainWindow::m_hMainToolbar, TB_ADDBUTTONS, (WPARAM)numbuttons1, (LPARAM)&tbButtons1);
+
+    // Show toolbar
+    SendMessage(MainWindow::m_hMainToolbar, TB_AUTOSIZE, 0, 0);
+    ShowWindow(MainWindow::m_hMainToolbar, TRUE);
 
     // Create Paint Toolbar
 
