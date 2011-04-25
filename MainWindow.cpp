@@ -37,7 +37,7 @@ MainWindow::MainWindow(HINSTANCE hInstance)
     m_wndClass.hCursor = LoadCursor(NULL, IDC_ARROW); // Class cursor
     m_wndClass.hbrBackground = (HBRUSH) (COLOR_WINDOW); // Background brush
     m_wndClass.lpszMenuName = MAKEINTRESOURCE(IDM_MAINMENU); // Menu Resource
-    m_wndClass.lpszClassName = (LPCWSTR) m_szClassName; // Name of this class
+    m_wndClass.lpszClassName = m_szClassName; // Name of this class
     m_wndClass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APP_ICON)); // Small icon for this class
 }
 
@@ -111,8 +111,8 @@ bool MainWindow::Run(int nCmdShow)
 
     m_hwnd = CreateWindowEx(
             0,
-            (LPCWSTR) m_szClassName,
-            (LPCWSTR) L"Draw Lite",
+            m_szClassName,
+            "Draw Lite",
             WS_OVERLAPPEDWINDOW,
             CW_USEDEFAULT,
             CW_USEDEFAULT,
@@ -178,6 +178,6 @@ bool MainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpcs)
     // Create Paint Toolbar
 
     // Create Statusbar
-    MainWindow::m_hStatusbar = CreateStatusWindow(WS_CHILD|WS_VISIBLE, (LPCWSTR) L"Ready", hwnd, IDC_STATUSBAR);
+    MainWindow::m_hStatusbar = CreateStatusWindow(WS_CHILD|WS_VISIBLE, "Ready", hwnd, IDC_STATUSBAR);
     return true;
 }
