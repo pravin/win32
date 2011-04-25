@@ -28,7 +28,7 @@ int AboutDialog::Run(HINSTANCE hInstance, HWND hParent)
         MAKEINTRESOURCE(IDD_ABOUT), // Dialog template
         hParent, // Pointer to parent hwnd
         DialogProc);
-
+	return retval;
 }
 
 // Function: DialogProc
