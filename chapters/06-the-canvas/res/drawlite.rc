@@ -1,0 +1,85 @@
+/* DrawLite - Win32 Tutorial
+ * Chapter 6 - The canvas
+ */
+#include <windows.h>
+#include "resource.h"
+
+// The application icon. Windows uses the lowest numbered icon as the exe's icon.
+IDI_APP ICON "drawlite.ico"
+
+// The manifest. Resource type 24 is RT_MANIFEST, and 1 is its id.
+1 24 "app.manifest"
+
+// Main menu
+IDM_MAINMENU MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",    IDM_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O", IDM_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",   IDM_FILE_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",           IDM_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",   IDM_EDIT_UNDO, GRAYED
+        MENUITEM "&Redo\tCtrl+Y",   IDM_EDIT_REDO, GRAYED
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About DrawLite", IDM_HELP_ABOUT
+    END
+END
+
+// Keyboard shortcuts
+IDA_MAINACCEL ACCELERATORS
+BEGIN
+    "N", IDM_FILE_NEW,  VIRTKEY, CONTROL
+    "O", IDM_FILE_OPEN, VIRTKEY, CONTROL
+    "S", IDM_FILE_SAVE, VIRTKEY, CONTROL
+    "Z", IDM_EDIT_UNDO, VIRTKEY, CONTROL
+    "Y", IDM_EDIT_REDO, VIRTKEY, CONTROL
+END
+
+// About box. Sizes are in dialog units, not pixels, so it scales with the font.
+IDD_ABOUT DIALOGEX 0, 0, 180, 100
+STYLE DS_MODALFRAME | DS_SHELLFONT | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About DrawLite"
+FONT 9, "Segoe UI"
+BEGIN
+    ICON            IDI_APP, IDC_STATIC, 74, 12, 32, 32
+    CTEXT           "DrawLite v0.6", IDC_STATIC, 20, 52, 140, 8
+    CTEXT           "A drawing application for Windows", IDC_STATIC, 7, 64, 166, 8
+    DEFPUSHBUTTON   "OK", IDOK, 65, 80, 50, 14
+END
+
+// Version information. Right click the exe, Properties, Details to see it.
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     0,6,0,0
+PRODUCTVERSION  0,6,0,0
+FILEFLAGSMASK   VS_FFI_FILEFLAGSMASK
+FILEFLAGS       0
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+FILESUBTYPE     0
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName",      "Pravin Paratey"
+            VALUE "FileDescription",  "DrawLite - a drawing application"
+            VALUE "FileVersion",      "0.6.0.0"
+            VALUE "InternalName",     "DrawLite"
+            VALUE "LegalCopyright",   "Copyright (c) Pravin Paratey"
+            VALUE "OriginalFilename", "drawlite.exe"
+            VALUE "ProductName",      "DrawLite"
+            VALUE "ProductVersion",   "0.6.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1200
+    END
+END

@@ -1,0 +1,34 @@
+name: Build every chapter
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: [msvc, mingw]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build all chapters
+        shell: bash
+        run: |
+          set -e
+          for dir in chapters/*/; do
+            name=$(basename "$dir")
+            echo "::group::$name ($TOOLCHAIN)"
+            if [ "$TOOLCHAIN" = "msvc" ]; then
+              cmake -S "$dir" -B "build/$TOOLCHAIN/$name"
+              cmake --build "build/$TOOLCHAIN/$name" --config Release
+            else
+              cmake -S "$dir" -B "build/$TOOLCHAIN/$name" -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+              cmake --build "build/$TOOLCHAIN/$name"
+            fi
+            echo "::endgroup::"
+          done
+        env:
+          TOOLCHAIN: ${{ matrix.toolchain }}
