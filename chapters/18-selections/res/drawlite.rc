@@ -1,0 +1,192 @@
+/* DrawLite - Win32 Tutorial
+ * Chapter 18 - Selections
+ */
+#include <windows.h>
+#include "resource.h"
+
+// The application icon. Windows uses the lowest numbered icon as the exe's icon.
+IDI_APP ICON "drawlite.ico"
+
+// The manifest. Resource type 24 is RT_MANIFEST, and 1 is its id.
+1 24 "app.manifest"
+
+// Main menu
+IDM_MAINMENU MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",    IDM_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O", IDM_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",   IDM_FILE_SAVE
+        MENUITEM "Save &As...\tCtrl+Shift+S", IDM_FILE_SAVEAS
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",           IDM_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",   IDM_EDIT_UNDO, GRAYED
+        MENUITEM "&Redo\tCtrl+Y",   IDM_EDIT_REDO, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",    IDM_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",   IDM_EDIT_COPY
+        MENUITEM "&Paste as New Layer\tCtrl+V", IDM_EDIT_PASTE
+        MENUITEM "Paste as New &Image\tCtrl+Shift+V", IDM_EDIT_PASTE_IMAGE
+        MENUITEM "&Delete\tDel",    IDM_EDIT_DELETE
+    END
+    POPUP "&Select"
+    BEGIN
+        MENUITEM "Select &All\tCtrl+A",    IDM_SEL_ALL
+        MENUITEM "&Deselect\tCtrl+D",      IDM_SEL_NONE
+        MENUITEM "&Invert Selection\tCtrl+I", IDM_SEL_INVERT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "Zoom &In\tCtrl++",       IDM_VIEW_ZOOMIN
+        MENUITEM "Zoom &Out\tCtrl+-",      IDM_VIEW_ZOOMOUT
+        MENUITEM "&Actual Size\tCtrl+0",   IDM_VIEW_ACTUAL
+        MENUITEM "&Fit to Window\tCtrl+9", IDM_VIEW_FIT
+    END
+    POPUP "&Layer"
+    BEGIN
+        MENUITEM "&Add New Layer\tCtrl+Shift+N",   IDM_LAYER_ADD
+        MENUITEM "&Duplicate Layer\tCtrl+Shift+D", IDM_LAYER_DUPLICATE
+        MENUITEM "D&elete Layer",                   IDM_LAYER_DELETE
+        MENUITEM SEPARATOR
+        MENUITEM "Move Layer &Up",                  IDM_LAYER_UP
+        MENUITEM "Move Layer D&own",                IDM_LAYER_DOWN
+        MENUITEM SEPARATOR
+        MENUITEM "&Visible\tCtrl+Shift+H",         IDM_LAYER_VISIBLE
+        MENUITEM "Select &Next Layer\tCtrl+PgUp",  IDM_LAYER_NEXT
+        MENUITEM "Select &Previous Layer\tCtrl+PgDn", IDM_LAYER_PREV
+    END
+    POPUP "&Options"
+    BEGIN
+        POPUP "&Brush Size"
+        BEGIN
+            MENUITEM "&1 pixel",    IDM_BRUSH_1
+            MENUITEM "&2 pixels",   IDM_BRUSH_2
+            MENUITEM "&4 pixels",   IDM_BRUSH_4
+            MENUITEM "&8 pixels",   IDM_BRUSH_8
+            MENUITEM "1&6 pixels",  IDM_BRUSH_16
+            MENUITEM "&32 pixels",  IDM_BRUSH_32
+        END
+        MENUITEM "&Soft Brush",     IDM_OPT_SOFT
+        POPUP "S&hape Style"
+        BEGIN
+            MENUITEM "&Outline",                IDM_SHAPE_OUTLINE
+            MENUITEM "&Filled",                 IDM_SHAPE_FILLED
+            MENUITEM "Filled with &Outline",    IDM_SHAPE_BOTH
+        END
+        POPUP "Fill and Wand &Tolerance"
+        BEGIN
+            MENUITEM "&0% (exact match)",   IDM_TOL_0
+            MENUITEM "&10%",                IDM_TOL_10
+            MENUITEM "&25%",                IDM_TOL_25
+            MENUITEM "&50%",                IDM_TOL_50
+        END
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About DrawLite", IDM_HELP_ABOUT
+    END
+END
+
+// Keyboard shortcuts
+IDA_MAINACCEL ACCELERATORS
+BEGIN
+    "N", IDM_FILE_NEW,  VIRTKEY, CONTROL
+    "O", IDM_FILE_OPEN, VIRTKEY, CONTROL
+    "S", IDM_FILE_SAVE, VIRTKEY, CONTROL
+    "S", IDM_FILE_SAVEAS, VIRTKEY, CONTROL, SHIFT
+    "Z", IDM_EDIT_UNDO, VIRTKEY, CONTROL
+    "Y", IDM_EDIT_REDO, VIRTKEY, CONTROL
+    "C", IDM_EDIT_COPY, VIRTKEY, CONTROL
+    "X", IDM_EDIT_CUT, VIRTKEY, CONTROL
+    VK_DELETE, IDM_EDIT_DELETE, VIRTKEY
+    "A", IDM_SEL_ALL, VIRTKEY, CONTROL
+    "D", IDM_SEL_NONE, VIRTKEY, CONTROL
+    "I", IDM_SEL_INVERT, VIRTKEY, CONTROL
+    "V", IDM_EDIT_PASTE, VIRTKEY, CONTROL
+    "V", IDM_EDIT_PASTE_IMAGE, VIRTKEY, CONTROL, SHIFT
+    "N", IDM_LAYER_ADD, VIRTKEY, CONTROL, SHIFT
+    "D", IDM_LAYER_DUPLICATE, VIRTKEY, CONTROL, SHIFT
+    "H", IDM_LAYER_VISIBLE, VIRTKEY, CONTROL, SHIFT
+    VK_PRIOR, IDM_LAYER_NEXT, VIRTKEY, CONTROL
+    VK_NEXT,  IDM_LAYER_PREV, VIRTKEY, CONTROL
+    VK_OEM_PLUS,  IDM_VIEW_ZOOMIN,  VIRTKEY, CONTROL
+    VK_ADD,       IDM_VIEW_ZOOMIN,  VIRTKEY, CONTROL
+    VK_OEM_MINUS, IDM_VIEW_ZOOMOUT, VIRTKEY, CONTROL
+    VK_SUBTRACT,  IDM_VIEW_ZOOMOUT, VIRTKEY, CONTROL
+    "0", IDM_VIEW_ACTUAL, VIRTKEY, CONTROL
+    "9", IDM_VIEW_FIT,    VIRTKEY, CONTROL
+END
+
+// About box. Sizes are in dialog units, not pixels, so it scales with the font.
+IDD_ABOUT DIALOGEX 0, 0, 180, 100
+STYLE DS_MODALFRAME | DS_SHELLFONT | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About DrawLite"
+FONT 9, "Segoe UI"
+BEGIN
+    ICON            IDI_APP, IDC_STATIC, 74, 12, 32, 32
+    CTEXT           "DrawLite v0.18", IDC_STATIC, 20, 52, 140, 8
+    CTEXT           "A drawing application for Windows", IDC_STATIC, 7, 64, 166, 8
+    DEFPUSHBUTTON   "OK", IDOK, 65, 80, 50, 14
+END
+
+// New Image dialog
+IDD_NEWIMAGE DIALOGEX 0, 0, 150, 80
+STYLE DS_MODALFRAME | DS_SHELLFONT | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "New Image"
+FONT 9, "Segoe UI"
+BEGIN
+    LTEXT           "&Width:", IDC_STATIC, 10, 14, 40, 8
+    EDITTEXT        IDC_NEW_WIDTH, 55, 12, 50, 14, ES_NUMBER | ES_AUTOHSCROLL
+    LTEXT           "pixels", IDC_STATIC, 110, 14, 30, 8
+    LTEXT           "&Height:", IDC_STATIC, 10, 34, 40, 8
+    EDITTEXT        IDC_NEW_HEIGHT, 55, 32, 50, 14, ES_NUMBER | ES_AUTOHSCROLL
+    LTEXT           "pixels", IDC_STATIC, 110, 34, 30, 8
+    DEFPUSHBUTTON   "OK", IDOK, 35, 58, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 90, 58, 50, 14
+END
+
+// Rename Layer dialog
+IDD_LAYER_NAME DIALOGEX 0, 0, 160, 56
+STYLE DS_MODALFRAME | DS_SHELLFONT | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Layer Name"
+FONT 9, "Segoe UI"
+BEGIN
+    LTEXT           "&Name:", IDC_STATIC, 10, 10, 28, 8
+    EDITTEXT        IDC_NAME_EDIT, 40, 8, 110, 14, ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK", IDOK, 40, 32, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 100, 32, 50, 14
+END
+
+// Version information. Right click the exe, Properties, Details to see it.
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     0,18,0,0
+PRODUCTVERSION  0,18,0,0
+FILEFLAGSMASK   VS_FFI_FILEFLAGSMASK
+FILEFLAGS       0
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+FILESUBTYPE     0
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName",      "Pravin Paratey"
+            VALUE "FileDescription",  "DrawLite - a drawing application"
+            VALUE "FileVersion",      "0.18.0.0"
+            VALUE "InternalName",     "DrawLite"
+            VALUE "LegalCopyright",   "Copyright (c) Pravin Paratey"
+            VALUE "OriginalFilename", "drawlite.exe"
+            VALUE "ProductName",      "DrawLite"
+            VALUE "ProductVersion",   "0.18.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1200
+    END
+END
