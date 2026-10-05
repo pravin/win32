@@ -1,0 +1,24 @@
+# GitHub Pages: renders every README.md in the repo as a page.
+# Settings > Pages > Deploy from a branch > master, / (root)
+theme: jekyll-theme-cayman
+title: "DrawLite: learn Win32 programming in C"
+description: "Build a paint program with layers, selections, text and effects using only C and the Windows API."
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-relative-links
+  - jekyll-titles-from-headings
+readme_index:
+  enabled: true
+  remove_originals: true
+relative_links:
+  enabled: true
+  collections: false
+titles_from_headings:
+  enabled: true
+  strip_title: true
+  collections: false
+exclude:
+  - legacy
+  - build
+  - .github
